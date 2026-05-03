@@ -1,0 +1,189 @@
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net;
+using System.Net.Http.Json;
+using FluentAssertions;
+using Xunit;
+using UTB.Minute.Contracts.Meals;
+using Microsoft.Extensions.DependencyInjection;
+using UTB.Minute.Db;
+using Microsoft.EntityFrameworkCore;
+
+namespace UTB.Minute.WebApi.Tests;
+
+public class MealTests : IAsyncLifetime
+{
+    private WebApplicationFactory<Program> _factory;
+    private HttpClient _client;
+
+    public async Task InitializeAsync()
+    {
+        _factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureServices(services =>
+                {
+                    // Remove existing DbContext registration
+                    var descriptor = services.SingleOrDefault(d =>
+                        d.ServiceType == typeof(DbContextOptions<MinuteDbContext>));
+                    if (descriptor != null)
+                        services.Remove(descriptor);
+
+                    // Use InMemory database for tests
+                    services.AddDbContext<MinuteDbContext>(options =>
+                        options.UseInMemoryDatabase("TestDb"));
+                });
+            });
+
+        _client = _factory.CreateClient();
+
+        // Reset database before tests
+        using (var scope = _factory.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<MinuteDbContext>();
+            await dbContext.Database.EnsureDeletedAsync();
+            await dbContext.Database.EnsureCreatedAsync();
+            await SeedTestDataAsync(dbContext);
+        }
+    }
+
+    private async Task SeedTestDataAsync(MinuteDbContext dbContext)
+    {
+        var meals = new[]
+        {
+            new UTB.Minute.Db.Entities.Meal
+            {
+                Name = "Chicken schnitzel",
+                Description = "Crispy chicken schnitzel with potatoes",
+                Price = 120,
+                IsActive = true
+            },
+            new UTB.Minute.Db.Entities.Meal
+            {
+                Name = "Pork goulash",
+                Description = "Traditional goulash with pasta",
+                Price = 140,
+                IsActive = true
+            },
+            new UTB.Minute.Db.Entities.Meal
+            {
+                Name = "Fish fillet",
+                Description = "Baked fish fillet with spinach",
+                Price = 150,
+                IsActive = true
+            },
+            new UTB.Minute.Db.Entities.Meal
+            {
+                Name = "Vegetarian burger",
+                Description = "Homemade burger with herb cheese",
+                Price = 110,
+                IsActive = true
+            }
+        };
+
+        dbContext.Meals.AddRange(meals);
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task DisposeAsync()
+    {
+        _client?.Dispose();
+        _factory?.Dispose();
+        await Task.CompletedTask;
+    }
+
+    [Fact]
+    public async Task GetMeals_ShouldReturnListOfMeals()
+    {
+        // Act
+        var response = await _client.GetAsync("/meals");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.Content.Headers.ContentType?.MediaType.Should().Be("application/json");
+
+        var content = await response.Content.ReadFromJsonAsync<List<MealDto>>();
+        content.Should().NotBeNull();
+        content.Should().HaveCount(4);
+    }
+
+    [Fact]
+    public async Task CreateMeal_WithValidData_ShouldReturnCreated()
+    {
+        // Arrange
+        var createMealDto = new CreateMealDto(
+            Name: "Test Meal",
+            Description: "Test Description",
+            Price: 99.99m
+        );
+
+        // Act
+        var response = await _client.PostAsJsonAsync("/meals", createMealDto);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
+        response.Headers.Location.Should().NotBeNull();
+
+        var createdMeal = await response.Content.ReadFromJsonAsync<MealDto>();
+        createdMeal.Should().NotBeNull();
+        createdMeal.Name.Should().Be("Test Meal");
+        createdMeal.Description.Should().Be("Test Description");
+        createdMeal.Price.Should().Be(99.99m);
+        createdMeal.IsActive.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GetMealById_WithValidId_ShouldReturnMeal()
+    {
+        // Arrange
+        var getMealsResponse = await _client.GetAsync("/meals");
+        var meals = await getMealsResponse.Content.ReadFromJsonAsync<List<MealDto>>();
+        var firstMealId = meals.First().Id;
+
+        // Act
+        var response = await _client.GetAsync($"/meals/{firstMealId}");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        var meal = await response.Content.ReadFromJsonAsync<MealDto>();
+        meal.Should().NotBeNull();
+        meal.Id.Should().Be(firstMealId);
+    }
+
+    [Fact]
+    public async Task UpdateMeal_WithValidData_ShouldReturnNoContent()
+    {
+        // Arrange
+        var getMealsResponse = await _client.GetAsync("/meals");
+        var meals = await getMealsResponse.Content.ReadFromJsonAsync<List<MealDto>>();
+        var firstMealId = meals.First().Id;
+
+        var updateMealDto = new UpdateMealDto(
+            Name: "Updated Meal",
+            Description: "Updated Description",
+            Price: 149.99m,
+            IsActive: false
+        );
+
+        // Act
+        var response = await _client.PutAsJsonAsync($"/meals/{firstMealId}", updateMealDto);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+
+        // Verify update
+        var getMealResponse = await _client.GetAsync($"/meals/{firstMealId}");
+        var updatedMeal = await getMealResponse.Content.ReadFromJsonAsync<MealDto>();
+        updatedMeal.Name.Should().Be("Updated Meal");
+        updatedMeal.IsActive.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task GetMealById_WithInvalidId_ShouldReturnNotFound()
+    {
+        // Act
+        var response = await _client.GetAsync("/meals/999");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+}

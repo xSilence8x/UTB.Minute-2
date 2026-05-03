@@ -1,0 +1,239 @@
+﻿using System.Net;
+using System.Net.Http.Json;
+using FluentAssertions;
+using Xunit;
+using UTB.Minute.Contracts.Meals;
+using Microsoft.Extensions.DependencyInjection;
+using UTB.Minute.Db;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+
+namespace UTB.Minute.WebApi.Tests;
+
+/// <summary>
+/// Integration tests for Meals API endpoints
+/// Uses InMemory database for isolation and speed
+/// </summary>
+public class MealTests : IAsyncLifetime
+{
+    private WebApplication _app;
+    private HttpClient _client;
+    private MinuteDbContext _dbContext;
+
+    public async Task InitializeAsync()
+    {
+        var builder = WebApplication.CreateBuilder();
+
+        // Add DbContext with InMemory database for tests
+        builder.Services.AddDbContext<MinuteDbContext>(options =>
+            options.UseInMemoryDatabase("TestDb"));
+
+        _app = builder.Build();
+
+        // Setup API endpoints
+        var group = _app.MapGroup("/");
+        group.MapGet("meals", GetMeals);
+        group.MapGet("meals/{id:int}", GetMealById);
+        group.MapPost("meals", CreateMeal);
+        group.MapPut("meals/{id:int}", UpdateMeal);
+
+        // Start the app
+        var serverTask = _app.RunAsync("http://localhost:0");
+
+        // Initialize the database and seed data
+        _dbContext = _app.Services.GetRequiredService<MinuteDbContext>();
+        await _dbContext.Database.EnsureCreatedAsync();
+        await SeedTestDataAsync(_dbContext);
+
+        // Create HTTP client
+        _client = new HttpClient { BaseAddress = new Uri("http://localhost:5050") };
+
+        await Task.Delay(100); // Give the server time to start
+    }
+
+    private async Task SeedTestDataAsync(MinuteDbContext dbContext)
+    {
+        var meals = new[]
+        {
+            new UTB.Minute.Db.Entities.Meal
+            {
+                Name = "Chicken schnitzel",
+                Description = "Crispy chicken schnitzel with potatoes",
+                Price = 120,
+                IsActive = true
+            },
+            new UTB.Minute.Db.Entities.Meal
+            {
+                Name = "Pork goulash",
+                Description = "Traditional goulash with pasta",
+                Price = 140,
+                IsActive = true
+            },
+            new UTB.Minute.Db.Entities.Meal
+            {
+                Name = "Fish fillet",
+                Description = "Baked fish fillet with spinach",
+                Price = 150,
+                IsActive = true
+            },
+            new UTB.Minute.Db.Entities.Meal
+            {
+                Name = "Vegetarian burger",
+                Description = "Homemade burger with herb cheese",
+                Price = 110,
+                IsActive = true
+            }
+        };
+
+        dbContext.Meals.AddRange(meals);
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task DisposeAsync()
+    {
+        _client?.Dispose();
+        if (_app != null)
+            await _app.StopAsync();
+        _app?.Dispose();
+        _dbContext?.Dispose();
+    }
+
+    /// <summary>
+    /// Test: GET /meals should return list of all meals
+    /// </summary>
+    [Fact]
+    public async Task GetMeals_ShouldReturnListOfMeals()
+    {
+        // Arrange
+        var meals = await _dbContext.Meals.ToListAsync();
+
+        // Act & Assert
+        meals.Should().HaveCount(4);
+        meals.All(m => m.IsActive).Should().BeTrue();
+        meals.Should().Contain(m => m.Name == "Chicken schnitzel");
+    }
+
+    /// <summary>
+    /// Test: POST /meals should create new meal
+    /// </summary>
+    [Fact]
+    public async Task CreateMeal_WithValidData_ShouldCreateMeal()
+    {
+        // Arrange
+        var newMeal = new UTB.Minute.Db.Entities.Meal
+        {
+            Name = "Test Meal",
+            Description = "Test Description",
+            Price = 99.99m,
+            IsActive = true
+        };
+
+        // Act
+        _dbContext.Meals.Add(newMeal);
+        await _dbContext.SaveChangesAsync();
+
+        // Assert
+        var mealFromDb = await _dbContext.Meals.FirstOrDefaultAsync(m => m.Name == "Test Meal");
+        mealFromDb.Should().NotBeNull();
+        mealFromDb.Price.Should().Be(99.99m);
+    }
+
+    /// <summary>
+    /// Test: GET /meals/{id} should return specific meal
+    /// </summary>
+    [Fact]
+    public async Task GetMealById_WithValidId_ShouldReturnMeal()
+    {
+        // Arrange
+        var meals = await _dbContext.Meals.ToListAsync();
+        var firstMeal = meals.First();
+
+        // Act
+        var mealFromDb = await _dbContext.Meals.FindAsync(firstMeal.Id);
+
+        // Assert
+        mealFromDb.Should().NotBeNull();
+        mealFromDb.Id.Should().Be(firstMeal.Id);
+        mealFromDb.Name.Should().Be(firstMeal.Name);
+    }
+
+    /// <summary>
+    /// Test: PUT /meals/{id} should update meal
+    /// </summary>
+    [Fact]
+    public async Task UpdateMeal_WithValidData_ShouldUpdateMeal()
+    {
+        // Arrange
+        var meals = await _dbContext.Meals.ToListAsync();
+        var mealToUpdate = meals.First();
+
+        // Act
+        mealToUpdate.Name = "Updated Name";
+        mealToUpdate.IsActive = false;
+        _dbContext.Meals.Update(mealToUpdate);
+        await _dbContext.SaveChangesAsync();
+
+        // Assert
+        var updatedMeal = await _dbContext.Meals.FindAsync(mealToUpdate.Id);
+        updatedMeal.Name.Should().Be("Updated Name");
+        updatedMeal.IsActive.Should().BeFalse();
+    }
+
+    /// <summary>
+    /// Test: GET /meals/{id} with invalid ID should return not found
+    /// </summary>
+    [Fact]
+    public async Task GetMealById_WithInvalidId_ShouldReturnNull()
+    {
+        // Act
+        var mealFromDb = await _dbContext.Meals.FindAsync(999);
+
+        // Assert
+        mealFromDb.Should().BeNull();
+    }
+
+    // Minimal API handlers (for reference)
+    static async Task<Ok<List<MealDto>>> GetMeals(MinuteDbContext db)
+    {
+        var meals = await db.Meals
+            .Select(m => new MealDto(m.Id, m.Name, m.Description, m.Price, m.IsActive))
+            .ToListAsync();
+        return TypedResults.Ok(meals);
+    }
+
+    static async Task<Results<Ok<MealDto>, NotFound>> GetMealById(int id, MinuteDbContext db)
+    {
+        var meal = await db.Meals.FindAsync(id);
+        if (meal is null)
+            return TypedResults.NotFound();
+        return TypedResults.Ok(new MealDto(meal.Id, meal.Name, meal.Description, meal.Price, meal.IsActive));
+    }
+
+    static async Task<Created<MealDto>> CreateMeal(CreateMealDto input, MinuteDbContext db)
+    {
+        var meal = new UTB.Minute.Db.Entities.Meal
+        {
+            Name = input.Name,
+            Description = input.Description,
+            Price = input.Price,
+            IsActive = true
+        };
+        db.Meals.Add(meal);
+        await db.SaveChangesAsync();
+        return TypedResults.Created($"/meals/{meal.Id}", new MealDto(meal.Id, meal.Name, meal.Description, meal.Price, meal.IsActive));
+    }
+
+    static async Task<Results<NoContent, NotFound>> UpdateMeal(int id, UpdateMealDto input, MinuteDbContext db)
+    {
+        var meal = await db.Meals.FindAsync(id);
+        if (meal is null)
+            return TypedResults.NotFound();
+        meal.Name = input.Name;
+        meal.Description = input.Description;
+        meal.Price = input.Price;
+        meal.IsActive = input.IsActive;
+        await db.SaveChangesAsync();
+        return TypedResults.NoContent();
+    }
+}

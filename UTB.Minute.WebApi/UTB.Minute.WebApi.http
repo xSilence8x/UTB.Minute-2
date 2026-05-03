@@ -1,0 +1,10 @@
+@UTB.Minute.WebApi_HostAddress = https://localhost:7245
+
+POST {{UTB.Minute.WebApi_HostAddress}}/reset-database
+Accept: application/json
+
+###
+
+GET {{UTB.Minute.WebApi_HostAddress}}/meals
+
+###
