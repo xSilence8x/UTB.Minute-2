@@ -1,0 +1,54 @@
+﻿using System.Net.Http.Json;
+using UTB.Minute.Contracts.MenuItems;
+using UTB.Minute.Contracts.Orders;
+
+namespace UTB.Minute.CanteenClient.Services;
+
+public class ApiClient
+{
+    private readonly HttpClient _httpClient;
+
+    public ApiClient(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    // Menu Items
+    public async Task<List<MenuItemDto>> GetTodayMenuItemsAsync()
+    {
+        return await _httpClient.GetFromJsonAsync<List<MenuItemDto>>("/menu-items/today") ?? [];
+    }
+
+    public async Task<MenuItemDto?> GetMenuItemByIdAsync(int id)
+    {
+        return await _httpClient.GetFromJsonAsync<MenuItemDto>($"/menu-items/{id}");
+    }
+
+    // Orders
+    public async Task<List<OrderDto>> GetActiveOrdersAsync()
+    {
+        return await _httpClient.GetFromJsonAsync<List<OrderDto>>("/orders/active") ?? [];
+    }
+
+    public async Task<OrderDto?> GetOrderByIdAsync(int id)
+    {
+        return await _httpClient.GetFromJsonAsync<OrderDto>($"/orders/{id}");
+    }
+
+    public async Task<OrderDto?> CreateOrderAsync(CreateOrderDto createOrderDto)
+    {
+        var response = await _httpClient.PostAsJsonAsync("/orders", createOrderDto);
+        if (response.IsSuccessStatusCode)
+        {
+            using var contentStream = await response.Content.ReadAsStreamAsync();
+            return await System.Text.Json.JsonSerializer.DeserializeAsync<OrderDto>(contentStream);
+        }
+        return null;
+    }
+
+    public async Task<bool> UpdateOrderStateAsync(int id, UpdateOrderStateDto updateOrderStateDto)
+    {
+        var response = await _httpClient.PutAsJsonAsync($"/orders/{id}/state", updateOrderStateDto);
+        return response.IsSuccessStatusCode;
+    }
+}

@@ -1,0 +1,273 @@
+﻿@page "/meals"
+@using UTB.Minute.AdminClient.Services
+@using UTB.Minute.Contracts.Meals
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<PageTitle>Meals Management</PageTitle>
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Meals Management</h1>
+        </div>
+        <div class="col text-end">
+            <button class="btn btn-success" @onclick="ShowCreateModal">
+                <span class="bi bi-plus-circle"></span> New Meal
+            </button>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn @(selectedFilter == null ? "btn-primary" : "btn-outline-primary")" @onclick="() => FilterMeals(null)">All</button>
+                <button type="button" class="btn @(selectedFilter == true ? "btn-primary" : "btn-outline-primary")" @onclick="() => FilterMeals(true)">Active</button>
+                <button type="button" class="btn @(selectedFilter == false ? "btn-primary" : "btn-outline-primary")" @onclick="() => FilterMeals(false)">Inactive</button>
+            </div>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="alert alert-info">Loading meals...</div>
+    }
+    else if (meals.Count == 0)
+    {
+        <div class="alert alert-warning">No meals found. Create a new one to get started.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var meal in meals)
+                    {
+                        <tr>
+                            <td>@meal.Id</td>
+                            <td>@meal.Name</td>
+                            <td>@meal.Description</td>
+                            <td>@meal.Price.ToString("C")</td>
+                            <td>
+                                @if (meal.IsActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactive</span>
+                                }
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" @onclick="() => ShowEditModal(meal)">
+                                    <span class="bi bi-pencil"></span> Edit
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (showModal)
+    {
+        <div class="modal fade show d-block" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">@(isEditing ? "Edit Meal" : "Create New Meal")</h5>
+                        <button type="button" class="btn-close" @onclick="HideModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Name *</label>
+                            <input type="text" class="form-control" @bind="formData.Name" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" @bind="formData.Description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Price *</label>
+                            <input type="number" class="form-control" @bind="formData.Price" step="0.01" />
+                        </div>
+                        @if (isEditing)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" @bind="formData.IsActive" id="isActive" />
+                                    <label class="form-check-label" for="isActive">
+                                        Active
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger" role="alert">@errorMessage</div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="HideModal">Cancel</button>
+                        <button type="button" class="btn btn-primary" @onclick="SaveMeal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<MealDto> meals = [];
+    private bool isLoading = true;
+    private bool showModal = false;
+    private bool isEditing = false;
+    private MealFormData formData = new();
+    private MealDto? editingMeal;
+    private string? errorMessage;
+    private bool? selectedFilter = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadMeals();
+    }
+
+    private async Task LoadMeals()
+    {
+        try
+        {
+            isLoading = true;
+            if (selectedFilter == null)
+            {
+                meals = await Api.GetMealsAsync();
+            }
+            else
+            {
+                meals = await Api.GetMealsAsync(selectedFilter);
+            }
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task FilterMeals(bool? filter)
+    {
+        selectedFilter = filter;
+        await LoadMeals();
+    }
+
+    private void ShowCreateModal()
+    {
+        isEditing = false;
+        editingMeal = null;
+        formData = new();
+        errorMessage = null;
+        showModal = true;
+    }
+
+    private void ShowEditModal(MealDto meal)
+    {
+        isEditing = true;
+        editingMeal = meal;
+        formData = new()
+        {
+            Name = meal.Name,
+            Description = meal.Description,
+            Price = meal.Price,
+            IsActive = meal.IsActive
+        };
+        errorMessage = null;
+        showModal = true;
+    }
+
+    private void HideModal()
+    {
+        showModal = false;
+        formData = new();
+        errorMessage = null;
+    }
+
+    private async Task SaveMeal()
+    {
+        try
+        {
+            errorMessage = null;
+
+            if (string.IsNullOrWhiteSpace(formData.Name))
+            {
+                errorMessage = "Name is required.";
+                return;
+            }
+
+            if (formData.Price <= 0)
+            {
+                errorMessage = "Price must be greater than 0.";
+                return;
+            }
+
+            if (isEditing && editingMeal != null)
+            {
+                var updateDto = new UpdateMealDto(
+                    formData.Name,
+                    formData.Description ?? string.Empty,
+                    formData.Price,
+                    formData.IsActive);
+
+                var success = await Api.UpdateMealAsync(editingMeal.Id, updateDto);
+                if (success)
+                {
+                    HideModal();
+                    await LoadMeals();
+                }
+                else
+                {
+                    errorMessage = "Failed to update meal.";
+                }
+            }
+            else
+            {
+                var createDto = new CreateMealDto(
+                    formData.Name,
+                    formData.Description ?? string.Empty,
+                    formData.Price);
+
+                var result = await Api.CreateMealAsync(createDto);
+                if (result != null)
+                {
+                    HideModal();
+                    await LoadMeals();
+                }
+                else
+                {
+                    errorMessage = "Failed to create meal.";
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+    }
+
+    private class MealFormData
+    {
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public decimal Price { get; set; }
+        public bool IsActive { get; set; } = true;
+    }
+}

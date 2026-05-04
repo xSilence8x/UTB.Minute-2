@@ -1,0 +1,188 @@
+﻿@page "/order-meal"
+@using UTB.Minute.CanteenClient.Services
+@using UTB.Minute.Contracts.MenuItems
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<PageTitle>Order a Meal</PageTitle>
+
+<div class="container-fluid mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Today's Menu</h1>
+            <p class="text-muted">@DateTime.Today.ToString("dddd, MMMM d, yyyy")</p>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="alert alert-info">Loading menu...</div>
+    }
+    else if (menuItems.Count == 0)
+    {
+        <div class="alert alert-warning">
+            <strong>No meals available today.</strong> Please check back later.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in menuItems)
+            {
+                var isSoldOut = item.AvailablePortions <= 0;
+
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 @(isSoldOut ? "opacity-50" : "")">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.MealName</h5>
+                            <p class="card-text text-muted">Available: @item.AvailablePortions portions</p>
+
+                            @if (isSoldOut)
+                            {
+                                <div class="alert alert-danger alert-sm mb-2" role="alert">
+                                    <strong>Sold Out</strong>
+                                </div>
+                                <button class="btn btn-secondary w-100" disabled>
+                                    Sold Out
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-success w-100" @onclick="() => OrderMeal(item)">
+                                    <span class="bi bi-cart-plus"></span> Order Now
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @if (showOrderModal)
+    {
+        <div class="modal fade show d-block" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Order</h5>
+                        <button type="button" class="btn-close" @onclick="CancelOrder"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>You are ordering:</p>
+                        <h6>@selectedMenuItem?.MealName</h6>
+
+                        <div class="mb-3">
+                            <label class="form-label">Student Name *</label>
+                            <input type="text" class="form-control" @bind="studentName" placeholder="Enter your name" />
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger" role="alert">@errorMessage</div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="CancelOrder">Cancel</button>
+                        <button type="button" class="btn btn-success" @onclick="ConfirmOrder">Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @successMessage
+                <button type="button" class="btn-close" @onclick="() => successMessage = string.Empty"></button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<MenuItemDto> menuItems = [];
+    private MenuItemDto? selectedMenuItem;
+    private bool isLoading = true;
+    private bool showOrderModal = false;
+    private string studentName = string.Empty;
+    private string? errorMessage;
+    private string successMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadMenuItems();
+    }
+
+    private async Task LoadMenuItems()
+    {
+        try
+        {
+            isLoading = true;
+            menuItems = await Api.GetTodayMenuItemsAsync();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void OrderMeal(MenuItemDto item)
+    {
+        selectedMenuItem = item;
+        errorMessage = null;
+        showOrderModal = true;
+    }
+
+    private void CancelOrder()
+    {
+        showOrderModal = false;
+        selectedMenuItem = null;
+        studentName = string.Empty;
+        errorMessage = null;
+    }
+
+    private async Task ConfirmOrder()
+    {
+        try
+        {
+            errorMessage = null;
+
+            if (string.IsNullOrWhiteSpace(studentName))
+            {
+                errorMessage = "Please enter your name.";
+                return;
+            }
+
+            if (selectedMenuItem == null)
+            {
+                errorMessage = "Please select a meal.";
+                return;
+            }
+
+            var createOrderDto = new CreateOrderDto(selectedMenuItem.Id, studentName);
+            var result = await Api.CreateOrderAsync(createOrderDto);
+
+            if (result != null)
+            {
+                successMessage = $"Order placed successfully! Order ID: #{result.Id}";
+                CancelOrder();
+                await LoadMenuItems();
+
+                // Navigate to orders page after a delay
+                await Task.Delay(2000);
+                Nav.NavigateTo("/my-orders");
+            }
+            else
+            {
+                errorMessage = "Failed to place order. This meal might be sold out.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+    }
+}

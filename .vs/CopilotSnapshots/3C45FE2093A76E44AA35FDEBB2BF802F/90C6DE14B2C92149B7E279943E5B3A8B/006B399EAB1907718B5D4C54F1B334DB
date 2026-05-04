@@ -1,0 +1,242 @@
+﻿using System.Net;
+using System.Net.Http.Json;
+using Xunit;
+using UTB.Minute.Contracts.Meals;
+using UTB.Minute.Db.Entities;
+
+namespace UTB.Minute.WebApi.Tests;
+
+/// <summary>
+/// Integration tests for Meals API endpoints
+/// Tests HTTP API operations using Aspire PostgreSQL and shared TestFixture
+/// </summary>
+[Collection("Database collection")]
+public class MealApiTests : IAsyncLifetime
+{
+    private readonly TestFixture _fixture;
+
+    public MealApiTests(TestFixture fixture)
+    {
+        _fixture = fixture;
+    }
+
+    public async Task InitializeAsync()
+    {
+        // Reset database before each test to ensure clean state
+        await _fixture.ResetDatabaseAsync();
+    }
+
+    public Task DisposeAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Test: GET /meals returns all meals
+    /// Verifies that the API returns correct meal data in JSON format
+    /// </summary>
+    [Fact]
+    public async Task GetMeals_ReturnsOkWithMeals()
+    {
+        // Act
+        var response = await _fixture.HttpClient.GetAsync("/meals", CancellationToken.None);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        var meals = await response.Content.ReadFromJsonAsync<List<MealDto>>(cancellationToken: CancellationToken.None);
+
+        Assert.NotNull(meals);
+        Assert.Equal(3, meals.Count);
+        Assert.True(meals[0].IsActive);
+        Assert.True(meals[1].IsActive);
+        Assert.False(meals[2].IsActive);
+    }
+
+    /// <summary>
+    /// Test: GET /meals/{id} returns specific meal
+    /// Verifies that the API returns the correct meal by ID
+    /// </summary>
+    [Fact]
+    public async Task GetMealById_WithValidId_ReturnsOkWithMeal()
+    {
+        // Arrange
+        using var context = _fixture.CreateContext();
+        var meals = await context.Meals.ToListAsync(CancellationToken.None);
+        var firstMeal = meals.First();
+
+        // Act
+        var response = await _fixture.HttpClient.GetAsync($"/meals/{firstMeal.Id}", CancellationToken.None);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        var mealDto = await response.Content.ReadFromJsonAsync<MealDto>(cancellationToken: CancellationToken.None);
+
+        Assert.NotNull(mealDto);
+        Assert.Equal(firstMeal.Id, mealDto.Id);
+        Assert.Equal(firstMeal.Name, mealDto.Name);
+        Assert.Equal(firstMeal.Description, mealDto.Description);
+        Assert.Equal(firstMeal.Price, mealDto.Price);
+        Assert.Equal(firstMeal.IsActive, mealDto.IsActive);
+    }
+
+    /// <summary>
+    /// Test: GET /meals/{id} returns NotFound for invalid ID
+    /// Verifies proper error handling for non-existent meals
+    /// </summary>
+    [Fact]
+    public async Task GetMealById_WithInvalidId_ReturnsNotFound()
+    {
+        // Act
+        var response = await _fixture.HttpClient.GetAsync("/meals/999", CancellationToken.None);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    /// <summary>
+    /// Test: POST /meals creates a new meal and persists it
+    /// Verifies: correct HTTP status (201 Created), DTO in response, correct Location header, and database persistence
+    /// Requirement: Vytvoření a čtení jídel a jejich testy
+    /// </summary>
+    [Fact]
+    public async Task CreateMeal_ReturnsCreatedAndPersistsMeal()
+    {
+        // Arrange
+        var createMealDto = new CreateMealDto(
+            "Grilovaný kuřecí steak",
+            "Kuřecí steak s grilovanými zeleninou",
+            195.50m);
+
+        // Act
+        var response = await _fixture.HttpClient.PostAsJsonAsync(
+            "/meals",
+            createMealDto,
+            CancellationToken.None);
+
+        // Assert - HTTP response
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+
+        var mealDto = await response.Content.ReadFromJsonAsync<MealDto>(cancellationToken: CancellationToken.None);
+
+        Assert.NotNull(mealDto);
+        Assert.Equal(createMealDto.Name, mealDto.Name);
+        Assert.Equal(createMealDto.Description, mealDto.Description);
+        Assert.Equal(createMealDto.Price, mealDto.Price);
+        Assert.True(mealDto.IsActive);
+
+        // Assert - Location header
+        Assert.NotNull(response.Headers.Location);
+        Assert.EndsWith($"/meals/{mealDto.Id}", response.Headers.Location.ToString());
+
+        // Assert - Database persistence
+        using var context = _fixture.CreateContext();
+        var mealFromDb = await context.Meals.FindAsync(mealDto.Id, CancellationToken.None);
+
+        Assert.NotNull(mealFromDb);
+        Assert.Equal(createMealDto.Name, mealFromDb.Name);
+        Assert.Equal(createMealDto.Description, mealFromDb.Description);
+        Assert.Equal(createMealDto.Price, mealFromDb.Price);
+        Assert.True(mealFromDb.IsActive);
+    }
+
+    /// <summary>
+    /// Test: PUT /meals/{id} updates existing meal
+    /// Verifies: correct HTTP status (204 NoContent), updated data in database, ability to deactivate meals
+    /// Requirement: Úprava jídla + deaktivace a jejich testy
+    /// </summary>
+    [Fact]
+    public async Task UpdateMeal_WithValidData_ReturnsNoContentAndUpdatesMeal()
+    {
+        // Arrange
+        using var context = _fixture.CreateContext();
+        var meals = await context.Meals.ToListAsync(CancellationToken.None);
+        var mealToUpdate = meals.First();
+        var mealId = mealToUpdate.Id;
+
+        var updateMealDto = new UpdateMealDto(
+            "Aktualizované jídlo",
+            "Nový popis",
+            299.99m,
+            false); // Deactivate meal
+
+        // Act
+        var response = await _fixture.HttpClient.PutAsJsonAsync(
+            $"/meals/{mealId}",
+            updateMealDto,
+            CancellationToken.None);
+
+        // Assert - HTTP response
+        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+
+        // Assert - Database persistence
+        using var contextAfterUpdate = _fixture.CreateContext();
+        var updatedMeal = await contextAfterUpdate.Meals.FindAsync(mealId, CancellationToken.None);
+
+        Assert.NotNull(updatedMeal);
+        Assert.Equal(updateMealDto.Name, updatedMeal.Name);
+        Assert.Equal(updateMealDto.Description, updatedMeal.Description);
+        Assert.Equal(updateMealDto.Price, updatedMeal.Price);
+        Assert.Equal(updateMealDto.IsActive, updatedMeal.IsActive);
+        Assert.False(updatedMeal.IsActive); // Verify deactivation
+    }
+
+    /// <summary>
+    /// Test: PUT /meals/{id} returns NotFound for invalid ID
+    /// Verifies proper error handling for non-existent meals
+    /// </summary>
+    [Fact]
+    public async Task UpdateMeal_WithInvalidId_ReturnsNotFound()
+    {
+        // Arrange
+        var updateMealDto = new UpdateMealDto("Test", "Test", 100, true);
+
+        // Act
+        var response = await _fixture.HttpClient.PutAsJsonAsync(
+            "/meals/999",
+            updateMealDto,
+            CancellationToken.None);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    /// <summary>
+    /// Test: Deactivating meal preserves data in database
+    /// Requirement: Jídlo se neodstraňuje, pouze se označí jako neaktivní
+    /// </summary>
+    [Fact]
+    public async Task DeactivateMeal_PreservesData_OnlyMarksAsInactive()
+    {
+        // Arrange
+        using var context = _fixture.CreateContext();
+        var meals = await context.Meals.ToListAsync(CancellationToken.None);
+        var mealToDeactivate = meals.First();
+        var mealId = mealToDeactivate.Id;
+        var originalName = mealToDeactivate.Name;
+
+        var updateMealDto = new UpdateMealDto(
+            mealToDeactivate.Name,
+            mealToDeactivate.Description,
+            mealToDeactivate.Price,
+            false); // Deactivate
+
+        // Act
+        var response = await _fixture.HttpClient.PutAsJsonAsync(
+            $"/meals/{mealId}",
+            updateMealDto,
+            CancellationToken.None);
+
+        // Assert - HTTP response
+        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+
+        // Assert - Data is preserved, not deleted
+        using var contextAfterUpdate = _fixture.CreateContext();
+        var deactivatedMeal = await contextAfterUpdate.Meals.FindAsync(mealId, CancellationToken.None);
+
+        Assert.NotNull(deactivatedMeal); // Still in database
+        Assert.False(deactivatedMeal.IsActive);
+        Assert.Equal(originalName, deactivatedMeal.Name); // Data preserved
+    }
+}

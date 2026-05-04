@@ -1,0 +1,290 @@
+﻿@page "/menu-items"
+@using UTB.Minute.AdminClient.Services
+@using UTB.Minute.Contracts.Meals
+@using UTB.Minute.Contracts.MenuItems
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<PageTitle>Menu Management</PageTitle>
+
+<div class="container-fluid mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Menu Items Management</h1>
+        </div>
+        <div class="col text-end">
+            <button class="btn btn-success" @onclick="ShowCreateModal">
+                <span class="bi bi-plus-circle"></span> New Menu Item
+            </button>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn @(selectedFilter == null ? "btn-primary" : "btn-outline-primary")" @onclick="() => FilterMenuItems(null)">All</button>
+                <button type="button" class="btn @(selectedFilter == false ? "btn-primary" : "btn-outline-primary")" @onclick="() => FilterMenuItems(false)">Not Archived</button>
+                <button type="button" class="btn @(selectedFilter == true ? "btn-primary" : "btn-outline-primary")" @onclick="() => FilterMenuItems(true)">Archived</button>
+            </div>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="alert alert-info">Loading menu items...</div>
+    }
+    else if (menuItems.Count == 0)
+    {
+        <div class="alert alert-warning">No menu items found. Create a new one to get started.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Meal Name</th>
+                        <th>Price</th>
+                        <th>Available Portions</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in menuItems.OrderBy(m => m.Date))
+                    {
+                        <tr>
+                            <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                            <td>@item.MealName</td>
+                            <td>
+                                @if (meals.FirstOrDefault(m => m.Id == item.MealId) is MealDto meal)
+                                {
+                                    @meal.Price.ToString("C")
+                                }
+                            </td>
+                            <td>
+                                <span class="badge @(item.AvailablePortions > 0 ? "bg-success" : "bg-danger")">
+                                    @item.AvailablePortions
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" @onclick="() => ShowEditModal(item)">
+                                    <span class="bi bi-pencil"></span> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" @onclick="() => DeleteMenuItem(item.Id)">
+                                    <span class="bi bi-trash"></span> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (showModal)
+    {
+        <div class="modal fade show d-block" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">@(isEditing ? "Edit Menu Item" : "Create New Menu Item")</h5>
+                        <button type="button" class="btn-close" @onclick="HideModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Date *</label>
+                            <input type="date" class="form-control" @bind="formData.Date" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Meal *</label>
+                            <select class="form-select" @bind="formData.MealId">
+                                <option value="">-- Select Meal --</option>
+                                @foreach (var meal in meals.Where(m => m.IsActive))
+                                {
+                                    <option value="@meal.Id">@meal.Name (@meal.Price.ToString("C"))</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Available Portions *</label>
+                            <input type="number" class="form-control" @bind="formData.AvailablePortions" min="0" />
+                        </div>
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger" role="alert">@errorMessage</div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="HideModal">Cancel</button>
+                        <button type="button" class="btn btn-primary" @onclick="SaveMenuItem">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<MenuItemDto> menuItems = [];
+    private List<MealDto> meals = [];
+    private bool isLoading = true;
+    private bool showModal = false;
+    private bool isEditing = false;
+    private MenuItemFormData formData = new();
+    private MenuItemDto? editingMenuItem;
+    private string? errorMessage;
+    private bool? selectedFilter = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        try
+        {
+            isLoading = true;
+            if (selectedFilter == null)
+            {
+                menuItems = await Api.GetMenuItemsAsync();
+            }
+            else
+            {
+                menuItems = await Api.GetMenuItemsAsync(selectedFilter);
+            }
+            meals = await Api.GetMealsAsync();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task FilterMenuItems(bool? filter)
+    {
+        selectedFilter = filter;
+        await LoadData();
+    }
+
+    private void ShowCreateModal()
+    {
+        isEditing = false;
+        editingMenuItem = null;
+        formData = new() { Date = DateOnly.FromDateTime(DateTime.Today) };
+        errorMessage = null;
+        showModal = true;
+    }
+
+    private void ShowEditModal(MenuItemDto item)
+    {
+        isEditing = true;
+        editingMenuItem = item;
+        formData = new()
+        {
+            Date = item.Date,
+            MealId = item.MealId,
+            AvailablePortions = item.AvailablePortions
+        };
+        errorMessage = null;
+        showModal = true;
+    }
+
+    private void HideModal()
+    {
+        showModal = false;
+        formData = new();
+        errorMessage = null;
+    }
+
+    private async Task SaveMenuItem()
+    {
+        try
+        {
+            errorMessage = null;
+
+            if (formData.MealId == 0)
+            {
+                errorMessage = "Please select a meal.";
+                return;
+            }
+
+            if (isEditing && editingMenuItem != null)
+            {
+                var updateDto = new UpdateMenuItemDto(
+                    formData.Date,
+                    formData.MealId,
+                    formData.AvailablePortions);
+
+                var success = await Api.UpdateMenuItemAsync(editingMenuItem.Id, updateDto);
+                if (success)
+                {
+                    HideModal();
+                    await LoadData();
+                }
+                else
+                {
+                    errorMessage = "Failed to update menu item.";
+                }
+            }
+            else
+            {
+                var createDto = new CreateMenuItemDto(
+                    formData.Date,
+                    formData.MealId,
+                    formData.AvailablePortions);
+
+                var result = await Api.CreateMenuItemAsync(createDto);
+                if (result != null)
+                {
+                    HideModal();
+                    await LoadData();
+                }
+                else
+                {
+                    errorMessage = "Failed to create menu item.";
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+    }
+
+    private async Task DeleteMenuItem(int id)
+    {
+        if (!await ConfirmDelete())
+            return;
+
+        var success = await Api.DeleteMenuItemAsync(id);
+        if (success)
+        {
+            await LoadData();
+        }
+        else
+        {
+            errorMessage = "Failed to delete menu item.";
+        }
+    }
+
+    private async Task<bool> ConfirmDelete()
+    {
+        if (JavaScriptRuntime != null)
+        {
+            return await JavaScriptRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this menu item?");
+        }
+        return false;
+    }
+
+    [Inject]
+    private IJSRuntime? JavaScriptRuntime { get; set; }
+
+    private class MenuItemFormData
+    {
+        public DateOnly Date { get; set; }
+        public int MealId { get; set; }
+        public int AvailablePortions { get; set; }
+    }
+}

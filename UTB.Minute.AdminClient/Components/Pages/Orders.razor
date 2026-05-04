@@ -1,0 +1,102 @@
+@page "/orders"
+@using UTB.Minute.AdminClient.Services
+@using UTB.Minute.Contracts.Orders
+@inject ApiClient Api
+
+<PageTitle>Orders Management</PageTitle>
+
+<div class="container-fluid mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>All Orders</h1>
+        </div>
+        <div class="col text-end">
+            <button class="btn btn-info" @onclick="RefreshOrders">
+                <span class="bi bi-arrow-clockwise"></span> Refresh
+            </button>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="alert alert-info">Loading orders...</div>
+    }
+    else if (orders.Count == 0)
+    {
+        <div class="alert alert-info">No orders found.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Student</th>
+                        <th>Meal</th>
+                        <th>Created</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in orders)
+                    {
+                        <tr>
+                            <td>#@order.Id</td>
+                            <td>@order.StudentName</td>
+                            <td>@order.MealName</td>
+                            <td>@order.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>
+                                @if (order.State == OrderStateDto.Preparing)
+                                {
+                                    <span class="badge bg-warning text-dark">Preparing</span>
+                                }
+                                else if (order.State == OrderStateDto.Ready)
+                                {
+                                    <span class="badge bg-success">Ready</span>
+                                }
+                                else if (order.State == OrderStateDto.Cancelled)
+                                {
+                                    <span class="badge bg-danger">Cancelled</span>
+                                }
+                                else if (order.State == OrderStateDto.Completed)
+                                {
+                                    <span class="badge bg-secondary">Completed</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@code {
+    private List<OrderDto> orders = [];
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadOrders();
+    }
+
+    private async Task LoadOrders()
+    {
+        try
+        {
+            isLoading = true;
+            orders = await Api.GetOrdersAsync();
+            orders = [..orders.OrderByDescending(o => o.CreatedAtUtc)];
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task RefreshOrders()
+    {
+        await LoadOrders();
+    }
+}

@@ -33,3 +33,15 @@ C:\Users\PC\Downloads\UTB.Minute-main\UTB.Minute-main\UTB.Minute.Contracts\obj\D
 C:\Users\PC\Downloads\UTB.Minute-main\UTB.Minute-main\UTB.Minute.Contracts\obj\Debug\net10.0\refint\UTB.Minute.Contracts.dll
 C:\Users\PC\Downloads\UTB.Minute-main\UTB.Minute-main\UTB.Minute.Contracts\obj\Debug\net10.0\UTB.Minute.Contracts.pdb
 C:\Users\PC\Downloads\UTB.Minute-main\UTB.Minute-main\UTB.Minute.Contracts\obj\Debug\net10.0\ref\UTB.Minute.Contracts.dll
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\bin\Debug\net10.0\UTB.Minute.Contracts.deps.json
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\bin\Debug\net10.0\UTB.Minute.Contracts.dll
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\bin\Debug\net10.0\UTB.Minute.Contracts.pdb
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\UTB.Minute.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\UTB.Minute.Contracts.AssemblyInfoInputs.cache
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\UTB.Minute.Contracts.AssemblyInfo.cs
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\UTB.Minute.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\UTB.Minute.Contracts.sourcelink.json
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\UTB.Minute.Contracts.dll
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\refint\UTB.Minute.Contracts.dll
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\UTB.Minute.Contracts.pdb
+C:\Users\xs8x\Documents\AP_project_v3\UTB\UTB.Minute.Contracts\obj\Debug\net10.0\ref\UTB.Minute.Contracts.dll

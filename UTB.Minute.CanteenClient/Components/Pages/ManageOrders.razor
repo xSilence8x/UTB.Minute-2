@@ -1,0 +1,189 @@
+@page "/manage-orders"
+@using UTB.Minute.CanteenClient.Services
+@using UTB.Minute.Contracts.Orders
+@inject ApiClient Api
+
+<PageTitle>Manage Orders</PageTitle>
+
+<div class="container-fluid mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Active Orders</h1>
+            <p class="text-muted">Manage student orders and update their status</p>
+        </div>
+        <div class="col text-end">
+            <button class="btn btn-info" @onclick="RefreshOrders">
+                <span class="bi bi-arrow-clockwise"></span> Refresh
+            </button>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="alert alert-info">Loading orders...</div>
+    }
+    else if (activeOrders.Count == 0)
+    {
+        <div class="alert alert-info">No active orders at the moment.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var order in activeOrders.OrderBy(o => o.CreatedAtUtc))
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header @GetHeaderClass(order.State)">
+                            <h6 class="mb-0">Order #@order.Id - @order.StudentName</h6>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@order.MealName</h5>
+                            <p class="card-text text-muted">
+                                <small>Ordered at: @order.CreatedAtUtc.ToString("HH:mm:ss")</small>
+                            </p>
+
+                            <div class="mb-3">
+                                <span class="badge @GetStatusBadgeClass(order.State)">
+                                    @GetStatusText(order.State)
+                                </span>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                @if (order.State == OrderStateDto.Preparing)
+                                {
+                                    <button class="btn btn-success" @onclick="() => UpdateOrderState(order, OrderStateDto.Ready)">
+                                        <span class="bi bi-check-circle"></span> Mark Ready
+                                    </button>
+                                    <button class="btn btn-danger" @onclick="() => UpdateOrderState(order, OrderStateDto.Cancelled)">
+                                        <span class="bi bi-x-circle"></span> Cancel Order
+                                    </button>
+                                }
+                                else if (order.State == OrderStateDto.Ready)
+                                {
+                                    <button class="btn btn-info" @onclick="() => UpdateOrderState(order, OrderStateDto.Completed)">
+                                        <span class="bi bi-check2-all"></span> Mark Completed
+                                    </button>
+                                    <button class="btn btn-danger" @onclick="() => UpdateOrderState(order, OrderStateDto.Cancelled)">
+                                        <span class="bi bi-x-circle"></span> Cancel Order
+                                    </button>
+                                }
+                                else if (order.State == OrderStateDto.Cancelled)
+                                {
+                                    <button class="btn btn-secondary" disabled>
+                                        <span class="bi bi-ban"></span> Cancelled
+                                    </button>
+                                    <button class="btn btn-info" @onclick="() => UpdateOrderState(order, OrderStateDto.Completed)">
+                                        <span class="bi bi-check2-all"></span> Mark Completed
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @successMessage
+                <button type="button" class="btn-close" @onclick="() => successMessage = string.Empty"></button>
+            </div>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @errorMessage
+                <button type="button" class="btn-close" @onclick="() => errorMessage = string.Empty"></button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<OrderDto> activeOrders = [];
+    private bool isLoading = true;
+    private string? successMessage;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadOrders();
+    }
+
+    private async Task LoadOrders()
+    {
+        try
+        {
+            isLoading = true;
+            activeOrders = await Api.GetActiveOrdersAsync();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task RefreshOrders()
+    {
+        await LoadOrders();
+    }
+
+    private async Task UpdateOrderState(OrderDto order, OrderStateDto newState)
+    {
+        try
+        {
+            errorMessage = null;
+            successMessage = null;
+
+            var updateDto = new UpdateOrderStateDto(newState);
+            var success = await Api.UpdateOrderStateAsync(order.Id, updateDto);
+
+            if (success)
+            {
+                successMessage = $"Order #{order.Id} updated to {GetStatusText(newState)}";
+                await LoadOrders();
+            }
+            else
+            {
+                errorMessage = $"Failed to update order #{order.Id}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+    }
+
+    private string GetStatusBadgeClass(OrderStateDto state) => state switch
+    {
+        OrderStateDto.Preparing => "bg-warning text-dark",
+        OrderStateDto.Ready => "bg-success",
+        OrderStateDto.Cancelled => "bg-danger",
+        OrderStateDto.Completed => "bg-secondary",
+        _ => "bg-secondary"
+    };
+
+    private string GetStatusText(OrderStateDto state) => state switch
+    {
+        OrderStateDto.Preparing => "Preparing",
+        OrderStateDto.Ready => "Ready",
+        OrderStateDto.Cancelled => "Cancelled",
+        OrderStateDto.Completed => "Completed",
+        _ => "Unknown"
+    };
+
+    private string GetHeaderClass(OrderStateDto state) => state switch
+    {
+        OrderStateDto.Preparing => "bg-warning text-dark",
+        OrderStateDto.Ready => "bg-success text-white",
+        OrderStateDto.Cancelled => "bg-danger text-white",
+        OrderStateDto.Completed => "bg-secondary text-white",
+        _ => "bg-secondary text-white"
+    };
+}

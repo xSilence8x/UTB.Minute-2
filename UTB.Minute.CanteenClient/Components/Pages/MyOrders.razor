@@ -1,0 +1,129 @@
+@page "/my-orders"
+@using UTB.Minute.CanteenClient.Services
+@using UTB.Minute.Contracts.Orders
+@inject ApiClient Api
+
+<PageTitle>My Orders</PageTitle>
+
+<div class="container-fluid mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>My Orders</h1>
+        </div>
+        <div class="col text-end">
+            <button class="btn btn-info" @onclick="RefreshOrders">
+                <span class="bi bi-arrow-clockwise"></span> Refresh
+            </button>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="alert alert-info">Loading your orders...</div>
+    }
+    else if (orders.Count == 0)
+    {
+        <div class="alert alert-info">
+            You don't have any active orders. <a href="/order-meal">Order a meal</a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var order in orders)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">Order #@order.Id</h6>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@order.MealName</h5>
+                            <p class="card-text text-muted">
+                                <small>Ordered: @order.CreatedAtUtc.ToString("HH:mm:ss")</small>
+                            </p>
+
+                            <div class="mb-3">
+                                <span class="badge @GetStatusBadgeClass(order.State)">
+                                    @GetStatusText(order.State)
+                                </span>
+                            </div>
+
+                            @if (order.State == OrderStateDto.Preparing)
+                            {
+                                <div class="alert alert-info alert-sm" role="alert">
+                                    <small>Your meal is being prepared...</small>
+                                </div>
+                            }
+                            else if (order.State == OrderStateDto.Ready)
+                            {
+                                <div class="alert alert-success alert-sm" role="alert">
+                                    <small>Your meal is ready! Please pick it up.</small>
+                                </div>
+                            }
+                            else if (order.State == OrderStateDto.Cancelled)
+                            {
+                                <div class="alert alert-danger alert-sm" role="alert">
+                                    <small>Your order was cancelled.</small>
+                                </div>
+                            }
+                            else if (order.State == OrderStateDto.Completed)
+                            {
+                                <div class="alert alert-secondary alert-sm" role="alert">
+                                    <small>Order completed.</small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<OrderDto> orders = [];
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadOrders();
+    }
+
+    private async Task LoadOrders()
+    {
+        try
+        {
+            isLoading = true;
+            orders = await Api.GetActiveOrdersAsync();
+            orders = [..orders.OrderByDescending(o => o.CreatedAtUtc)];
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task RefreshOrders()
+    {
+        await LoadOrders();
+    }
+
+    private string GetStatusBadgeClass(OrderStateDto state) => state switch
+    {
+        OrderStateDto.Preparing => "bg-warning text-dark",
+        OrderStateDto.Ready => "bg-success",
+        OrderStateDto.Cancelled => "bg-danger",
+        OrderStateDto.Completed => "bg-secondary",
+        _ => "bg-secondary"
+    };
+
+    private string GetStatusText(OrderStateDto state) => state switch
+    {
+        OrderStateDto.Preparing => "Preparing",
+        OrderStateDto.Ready => "Ready",
+        OrderStateDto.Cancelled => "Cancelled",
+        OrderStateDto.Completed => "Completed",
+        _ => "Unknown"
+    };
+}

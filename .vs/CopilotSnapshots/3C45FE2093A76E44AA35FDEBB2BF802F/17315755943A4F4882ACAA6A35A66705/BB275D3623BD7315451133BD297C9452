@@ -1,0 +1,179 @@
+﻿using FluentAssertions;
+using Xunit;
+using UTB.Minute.Db;
+using UTB.Minute.Db.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace UTB.Minute.WebApi.Tests;
+
+/// <summary>
+/// Integration tests for Meals functionality
+/// Tests database operations using Aspire PostgreSQL and shared TestFixture
+/// </summary>
+[Collection("Database collection")]
+public class MealTests
+{
+    private readonly TestFixture _fixture;
+
+    public MealTests(TestFixture fixture)
+    {
+        _fixture = fixture;
+    }
+
+    /// <summary>
+    /// Test: GET meals should return list of all meals
+    /// Requirement: Vytvoření a čtení jídel a jejich testy
+    /// </summary>
+    [Fact]
+    public async Task GetMeals_ShouldReturnListOfMeals()
+    {
+        // Act
+        using var context = _fixture.CreateContext();
+        var meals = await context.Meals.ToListAsync();
+
+        // Assert
+        meals.Should().HaveCount(3);
+        meals.All(m => m.IsActive).Should().BeTrue();
+        meals.Should().Contain(m => m.Name == "Guláš");
+    }
+
+    /// <summary>
+    /// Test: POST meal should create new meal
+    /// Requirement: Vytvoření a čtení jídel a jejich testy
+    /// </summary>
+    [Fact]
+    public async Task CreateMeal_WithValidData_ShouldCreateMeal()
+    {
+        // Arrange
+        using var context = _fixture.CreateContext();
+        var newMeal = new Meal
+        {
+            Name = "Test Meal",
+            Description = "Test Description",
+            Price = 99.99m,
+            IsActive = true
+        };
+
+        // Act
+        context.Meals.Add(newMeal);
+        await context.SaveChangesAsync();
+
+        // Assert
+        var mealFromDb = await context.Meals.FirstOrDefaultAsync(m => m.Name == "Test Meal");
+        mealFromDb.Should().NotBeNull();
+        mealFromDb.Price.Should().Be(99.99m);
+        mealFromDb.IsActive.Should().BeTrue();
+    }
+
+    /// <summary>
+    /// Test: GET meal by ID should return specific meal
+    /// </summary>
+    [Fact]
+    public async Task GetMealById_WithValidId_ShouldReturnMeal()
+    {
+        // Arrange
+        using var context = _fixture.CreateContext();
+        var meals = await context.Meals.ToListAsync();
+        var firstMeal = meals.First();
+
+        // Act
+        var mealFromDb = await context.Meals.FindAsync(firstMeal.Id);
+
+        // Assert
+        mealFromDb.Should().NotBeNull();
+        mealFromDb.Id.Should().Be(firstMeal.Id);
+        mealFromDb.Name.Should().Be(firstMeal.Name);
+        mealFromDb.Description.Should().Be(firstMeal.Description);
+    }
+
+    /// <summary>
+    /// Test: PUT meal should update meal and allow deactivation
+    /// Requirement: Úprava jídla + deaktivace a jejich testy
+    /// </summary>
+    [Fact]
+    public async Task UpdateMeal_WithValidData_ShouldUpdateMeal()
+    {
+        // Arrange
+        using var context = _fixture.CreateContext();
+        var meals = await context.Meals.ToListAsync();
+        var mealToUpdate = meals.First();
+        var originalId = mealToUpdate.Id;
+
+        // Act
+        mealToUpdate.Name = "Updated Name";
+        mealToUpdate.Description = "Updated Description";
+        mealToUpdate.Price = 199.99m;
+        mealToUpdate.IsActive = false;
+
+        context.Meals.Update(mealToUpdate);
+        await context.SaveChangesAsync();
+
+        // Assert
+        var updatedMeal = await context.Meals.FindAsync(originalId);
+        updatedMeal.Should().NotBeNull();
+        updatedMeal.Name.Should().Be("Updated Name");
+        updatedMeal.Description.Should().Be("Updated Description");
+        updatedMeal.Price.Should().Be(199.99m);
+        updatedMeal.IsActive.Should().BeFalse();
+    }
+
+    /// <summary>
+    /// Test: GET meal with invalid ID should return null (not found)
+    /// </summary>
+    [Fact]
+    public async Task GetMealById_WithInvalidId_ShouldReturnNull()
+    {
+        // Act
+        var mealFromDb = await _dbContext.Meals.FindAsync(999);
+
+        // Assert
+        mealFromDb.Should().BeNull();
+    }
+
+    /// <summary>
+    /// Test: Deactivating meal (instead of deleting) preserves data
+    /// Requirement: Jídlo se neodstraňuje, pouze se označí jako neaktivní
+    /// </summary>
+    [Fact]
+    public async Task DeactivateMeal_ShouldMarkAsInactive()
+    {
+        // Arrange
+        var meals = await _dbContext.Meals.ToListAsync();
+        var mealToDeactivate = meals.First();
+
+        // Act
+        mealToDeactivate.IsActive = false;
+        _dbContext.Meals.Update(mealToDeactivate);
+        await _dbContext.SaveChangesAsync();
+
+        // Assert
+        var deactivatedMeal = await _dbContext.Meals.FindAsync(mealToDeactivate.Id);
+        deactivatedMeal.Should().NotBeNull(); // Still in database
+        deactivatedMeal.IsActive.Should().BeFalse();
+
+        // Verify data integrity
+        deactivatedMeal.Name.Should().Be(mealToDeactivate.Name);
+        deactivatedMeal.Price.Should().Be(mealToDeactivate.Price);
+    }
+
+    /// <summary>
+    /// Test: Can filter active meals only
+    /// </summary>
+    [Fact]
+    public async Task GetActiveMeals_ShouldExcludeInactiveMeals()
+    {
+        // Arrange
+        var meals = await _dbContext.Meals.ToListAsync();
+        var mealToDeactivate = meals.First();
+        mealToDeactivate.IsActive = false;
+        _dbContext.Meals.Update(mealToDeactivate);
+        await _dbContext.SaveChangesAsync();
+
+        // Act
+        var activeMeals = await _dbContext.Meals.Where(m => m.IsActive).ToListAsync();
+
+        // Assert
+        activeMeals.Should().HaveCount(3);
+        activeMeals.Should().NotContain(m => m.Id == mealToDeactivate.Id);
+    }
+}

@@ -59,9 +59,16 @@ app.UseHttpsRedirection();
 
 app.Run();
 
-static async Task<Ok<List<MealDto>>> GetMeals(MinuteDbContext db)
+static async Task<Ok<List<MealDto>>> GetMeals(bool? isActive, MinuteDbContext db)
 {
-    var meals = await db.Meals
+    var query = db.Meals.AsQueryable();
+
+    if (isActive.HasValue)
+    {
+        query = query.Where(m => m.IsActive == isActive.Value);
+    }
+
+    var meals = await query
         .Select(m => new MealDto(
             m.Id,
             m.Name,
@@ -130,9 +137,25 @@ static async Task<Results<NoContent, NotFound>> UpdateMeal(int id, UpdateMealDto
     return TypedResults.NoContent();
 }
 
-static async Task<Ok<List<MenuItemDto>>> GetMenuItems(MinuteDbContext db)
+static async Task<Ok<List<MenuItemDto>>> GetMenuItems(bool? isArchived, MinuteDbContext db)
 {
-    var menuItems = await db.MenuItems
+    var query = db.MenuItems.AsQueryable();
+
+    if (isArchived.HasValue)
+    {
+        // You can define a logic for archiving, for now we'll filter based on date
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        if (isArchived.Value)
+        {
+            query = query.Where(mi => mi.Date < today);
+        }
+        else
+        {
+            query = query.Where(mi => mi.Date >= today);
+        }
+    }
+
+    var menuItems = await query
         .Include(mi => mi.Meal)
         .OrderBy(mi => mi.Date)
         .ThenBy(mi => mi.Meal.Name)

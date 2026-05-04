@@ -1,9 +1,22 @@
+using Microsoft.Extensions.Hosting;
 var builder = DistributedApplication.CreateBuilder(args);
 
-// Add PostgreSQL database
-var postgres = builder.AddPostgres("postgres")
-    .WithPgAdmin() // Add pgAdmin for browsing DB data
-    .WithDataVolume(); // This method allows saving data on a disk
+IResourceBuilder<PostgresServerResource> postgres;
+
+// Add PostgreSQL database with environment-specific configuration
+if (builder.Environment.IsEnvironment("Testing"))
+{
+    postgres = builder.AddPostgres("postgres-testing")
+                      .WithContainerName("postgres-testing-UTB.Minute");
+}
+else
+{
+    postgres = builder.AddPostgres("postgres")
+                     .WithContainerName("postgres-UTB.Minute")
+                     .WithPgAdmin() // Add pgAdmin for browsing DB data
+                     .WithDataVolume() // This method allows saving data on a disk
+                     .WithLifetime(ContainerLifetime.Persistent);
+}
 
 var database = postgres.AddDatabase("database");
 
