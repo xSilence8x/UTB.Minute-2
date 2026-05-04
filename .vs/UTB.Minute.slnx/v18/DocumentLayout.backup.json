@@ -3,8 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{511397AE-D3AA-C293-AD1F-7F0314A4111B}|UTB.Minute.WebApi\\UTB.Minute.WebApi.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.webapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{511397AE-D3AA-C293-AD1F-7F0314A4111B}|UTB.Minute.WebApi\\UTB.Minute.WebApi.csproj|solutionrelative:utb.minute.webapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\services\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\services\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\pages\\error.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\components\\pages\\error.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\pages\\meals.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\components\\pages\\meals.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{511397AE-D3AA-C293-AD1F-7F0314A4111B}|UTB.Minute.WebApi\\UTB.Minute.WebApi.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{511397AE-D3AA-C293-AD1F-7F0314A4111B}|UTB.Minute.WebApi\\UTB.Minute.WebApi.csproj|solutionrelative:utb.minute.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\DEVELOPER_REFERENCE.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
@@ -21,14 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\IMPLEMENTATION_SUMMARY.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:IMPLEMENTATION_SUMMARY.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{511397AE-D3AA-C293-AD1F-7F0314A4111B}|UTB.Minute.WebApi\\UTB.Minute.WebApi.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{511397AE-D3AA-C293-AD1F-7F0314A4111B}|UTB.Minute.WebApi\\UTB.Minute.WebApi.csproj|solutionrelative:utb.minute.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9009C168-931C-6E6C-4509-718CCA9A3F70}|UTB.Minute.WebApi.Tests\\UTB.Minute.WebApi.Tests.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.webapi.tests\\testfixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -73,14 +105,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\pages\\meals.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|solutionrelative:utb.minute.adminclient\\components\\pages\\meals.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6DF0A1F0-AFFB-1F91-B8FD-5C74E5F62E90}|UTB.Minute.AdminClient\\UTB.Minute.AdminClient.csproj|c:\\users\\xs8x\\documents\\ap_project_v3\\utb\\utb.minute.adminclient\\components\\pages\\menuitems.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -158,7 +182,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -166,33 +190,137 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "SOLUTION_COMPLETE.md",
-              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\SOLUTION_COMPLETE.md",
-              "RelativeDocumentMoniker": "SOLUTION_COMPLETE.md",
-              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\SOLUTION_COMPLETE.md",
-              "RelativeToolTip": "SOLUTION_COMPLETE.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-04T17:52:32.413Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "README.md",
-              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\README.md",
-              "RelativeDocumentMoniker": "README.md",
-              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\README.md",
-              "RelativeToolTip": "README.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-04T17:52:14.539Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "UTB.Minute.WebApi\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi\\Properties\\launchSettings.json",
+              "RelativeToolTip": "UTB.Minute.WebApi\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-04T18:09:06.444Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Properties\\launchSettings.json",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-04T18:36:23.746Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "App.razor",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\App.razor",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\App.razor",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\App.razor",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\Components\\App.razor",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-04T18:29:26.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Routes.razor",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Routes.razor",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Routes.razor",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Routes.razor",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\Components\\Routes.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-04T18:29:21.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApiClient.cs",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Services\\ApiClient.cs",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Services\\ApiClient.cs",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Services\\ApiClient.cs",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\Services\\ApiClient.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAcwBMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T17:25:21.242Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Program.cs",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Program.cs",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Program.cs",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T17:25:26.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\appsettings.Development.json",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-04T18:51:26.207Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Meals.razor",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Meals.razor",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Pages\\Meals.razor",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Meals.razor",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\Components\\Pages\\Meals.razor",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABEBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-04T17:25:56.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-04T17:25:44.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Error.razor",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Error.razor",
+              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Pages\\Error.razor",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Error.razor",
+              "RelativeToolTip": "UTB.Minute.AdminClient\\Components\\Pages\\Error.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-04T18:41:36.974Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "DEVELOPER_REFERENCE.md",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\DEVELOPER_REFERENCE.md",
               "RelativeDocumentMoniker": "DEVELOPER_REFERENCE.md",
@@ -200,25 +328,48 @@
               "RelativeToolTip": "DEVELOPER_REFERENCE.md",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAFoBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-04T17:51:46.002Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:51:46.002Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApiClient.cs",
-              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Services\\ApiClient.cs",
-              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Services\\ApiClient.cs",
-              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Services\\ApiClient.cs",
-              "RelativeToolTip": "UTB.Minute.AdminClient\\Services\\ApiClient.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAnwBMAAAAIAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi\\Program.cs",
+              "RelativeDocumentMoniker": "UTB.Minute.WebApi\\Program.cs",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi\\Program.cs",
+              "RelativeToolTip": "UTB.Minute.WebApi\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAMEBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-04T17:25:21.242Z",
+              "WhenOpened": "2026-04-20T13:26:39.099Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 39,
+              "Title": "README.md",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\README.md",
+              "RelativeDocumentMoniker": "README.md",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\README.md",
+              "RelativeToolTip": "README.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-05-04T17:52:14.539Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "SOLUTION_COMPLETE.md",
+              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\SOLUTION_COMPLETE.md",
+              "RelativeDocumentMoniker": "SOLUTION_COMPLETE.md",
+              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\SOLUTION_COMPLETE.md",
+              "RelativeToolTip": "SOLUTION_COMPLETE.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-05-04T17:52:32.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
               "Title": "VERIFICATION_CHECKLIST.md",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\VERIFICATION_CHECKLIST.md",
               "RelativeDocumentMoniker": "VERIFICATION_CHECKLIST.md",
@@ -226,12 +377,11 @@
               "RelativeToolTip": "VERIFICATION_CHECKLIST.md",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADcBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-04T17:53:06.204Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:53:06.204Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 42,
               "Title": "QUICK_START.md",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\QUICK_START.md",
               "RelativeDocumentMoniker": "QUICK_START.md",
@@ -239,12 +389,11 @@
               "RelativeToolTip": "QUICK_START.md",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAM0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-04T17:53:24.041Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:53:24.041Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "ASSIGNMENT_FULFILLMENT.md",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\ASSIGNMENT_FULFILLMENT.md",
               "RelativeDocumentMoniker": "ASSIGNMENT_FULFILLMENT.md",
@@ -252,12 +401,11 @@
               "RelativeToolTip": "ASSIGNMENT_FULFILLMENT.md",
               "ViewState": "AgIAAFEAAAAAAAAAAAAAAOoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-04T17:51:21.198Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:51:21.198Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 13,
               "Title": "TESTING_GUIDE.md",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\TESTING_GUIDE.md",
               "RelativeDocumentMoniker": "TESTING_GUIDE.md",
@@ -265,12 +413,11 @@
               "RelativeToolTip": "TESTING_GUIDE.md",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAANsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-04T17:51:02.026Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:51:02.026Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 14,
               "Title": "IMPLEMENTATION_SUMMARY.md",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\IMPLEMENTATION_SUMMARY.md",
               "RelativeDocumentMoniker": "IMPLEMENTATION_SUMMARY.md",
@@ -278,12 +425,11 @@
               "RelativeToolTip": "IMPLEMENTATION_SUMMARY.md",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-04T17:50:30.84Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:50:30.84Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 24,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\appsettings.json",
               "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\appsettings.json",
@@ -295,20 +441,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Program.cs",
-              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Program.cs",
-              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Program.cs",
-              "RelativeToolTip": "UTB.Minute.AdminClient\\Program.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAhwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-04T17:25:26.278Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 37,
               "Title": "ManageOrders.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Components\\Pages\\ManageOrders.razor",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Components\\Pages\\ManageOrders.razor",
@@ -316,12 +449,11 @@
               "RelativeToolTip": "UTB.Minute.CanteenClient\\Components\\Pages\\ManageOrders.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAL0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-04T17:33:19.161Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:33:19.161Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 38,
               "Title": "_Imports.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Components\\_Imports.razor",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Components\\_Imports.razor",
@@ -329,25 +461,11 @@
               "RelativeToolTip": "UTB.Minute.CanteenClient\\Components\\_Imports.razor",
               "ViewState": "AgIAAAwAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-04T17:33:26.64Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:33:26.64Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi\\Program.cs",
-              "RelativeDocumentMoniker": "UTB.Minute.WebApi\\Program.cs",
-              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi\\Program.cs",
-              "RelativeToolTip": "UTB.Minute.WebApi\\Program.cs",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAWwMEBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T13:26:39.099Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 25,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Layout\\NavMenu.razor",
               "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Layout\\NavMenu.razor",
@@ -359,19 +477,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Home.razor",
-              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Home.razor",
-              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Pages\\Home.razor",
-              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Home.razor",
-              "RelativeToolTip": "UTB.Minute.AdminClient\\Components\\Pages\\Home.razor",
-              "ViewState": "AgIAAAIAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-04T17:25:44.119Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 36,
               "Title": "MyOrders.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Components\\Pages\\MyOrders.razor",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Components\\Pages\\MyOrders.razor",
@@ -383,7 +489,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 35,
               "Title": "OrderMeal.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Components\\Pages\\OrderMeal.razor",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Components\\Pages\\OrderMeal.razor",
@@ -391,12 +497,11 @@
               "RelativeToolTip": "UTB.Minute.CanteenClient\\Components\\Pages\\OrderMeal.razor",
               "ViewState": "AgIAAIIAAAAAAAAAAIBJwLwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-04T17:27:05.893Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:27:05.893Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 34,
               "Title": "Home.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Components\\Pages\\Home.razor",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Components\\Pages\\Home.razor",
@@ -408,7 +513,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 33,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Components\\Layout\\NavMenu.razor",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Components\\Layout\\NavMenu.razor",
@@ -420,7 +525,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 32,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\appsettings.json",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\appsettings.json",
@@ -432,7 +537,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 31,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Services\\AuthService.cs",
@@ -444,7 +549,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 30,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Program.cs",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Program.cs",
@@ -452,12 +557,11 @@
               "RelativeToolTip": "UTB.Minute.CanteenClient\\Program.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-04T17:26:28.52Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:26:28.52Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 29,
               "Title": "ApiClient.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.CanteenClient\\Services\\ApiClient.cs",
               "RelativeDocumentMoniker": "UTB.Minute.CanteenClient\\Services\\ApiClient.cs",
@@ -465,12 +569,11 @@
               "RelativeToolTip": "UTB.Minute.CanteenClient\\Services\\ApiClient.cs",
               "ViewState": "AgIAACoAAAAAAAAAAIBJwDYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-04T17:26:23.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:26:23.767Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 28,
               "Title": "_Imports.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\_Imports.razor",
               "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\_Imports.razor",
@@ -482,7 +585,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 27,
               "Title": "Orders.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Orders.razor",
               "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Pages\\Orders.razor",
@@ -494,7 +597,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 26,
               "Title": "MenuItems.razor",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\MenuItems.razor",
               "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Pages\\MenuItems.razor",
@@ -502,25 +605,11 @@
               "RelativeToolTip": "UTB.Minute.AdminClient\\Components\\Pages\\MenuItems.razor",
               "ViewState": "AgIAAJoAAAAAAAAAAIBJwCIBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-04T17:26:09.321Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-04T17:26:09.321Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Meals.razor",
-              "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Meals.razor",
-              "RelativeDocumentMoniker": "UTB.Minute.AdminClient\\Components\\Pages\\Meals.razor",
-              "ToolTip": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AdminClient\\Components\\Pages\\Meals.razor",
-              "RelativeToolTip": "UTB.Minute.AdminClient\\Components\\Pages\\Meals.razor",
-              "ViewState": "AgIAAJ0AAAAAAAAAAIBJwBEBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-04T17:25:56.208Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 15,
               "Title": "TestFixture.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi.Tests\\TestFixture.cs",
               "RelativeDocumentMoniker": "UTB.Minute.WebApi.Tests\\TestFixture.cs",
@@ -532,7 +621,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 21,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi.Tests\\appsettings.json",
               "RelativeDocumentMoniker": "UTB.Minute.WebApi.Tests\\appsettings.json",
@@ -544,7 +633,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 20,
               "Title": "AppHost.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.AppHost\\AppHost.cs",
               "RelativeDocumentMoniker": "UTB.Minute.AppHost\\AppHost.cs",
@@ -556,7 +645,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 18,
               "Title": "MenuItemApiTests.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi.Tests\\MenuItemApiTests.cs",
               "RelativeDocumentMoniker": "UTB.Minute.WebApi.Tests\\MenuItemApiTests.cs",
@@ -568,7 +657,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 16,
               "Title": "UnitTest1.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi.Tests\\UnitTest1.cs",
               "RelativeDocumentMoniker": "UTB.Minute.WebApi.Tests\\UnitTest1.cs",
@@ -580,7 +669,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 17,
               "Title": "OrderApiTests.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi.Tests\\OrderApiTests.cs",
               "RelativeDocumentMoniker": "UTB.Minute.WebApi.Tests\\OrderApiTests.cs",
@@ -592,7 +681,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 19,
               "Title": "DatabaseCollection.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi.Tests\\DatabaseCollection.cs",
               "RelativeDocumentMoniker": "UTB.Minute.WebApi.Tests\\DatabaseCollection.cs",
@@ -604,7 +693,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 22,
               "Title": "UTB.Minute.WebApi.Tests.csproj",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.WebApi.Tests\\UTB.Minute.WebApi.Tests.csproj",
               "RelativeDocumentMoniker": "UTB.Minute.WebApi.Tests\\UTB.Minute.WebApi.Tests.csproj",
@@ -616,7 +705,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 23,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\xs8x\\Documents\\AP_project_v3\\UTB\\UTB.Minute.DbManager\\Program.cs",
               "RelativeDocumentMoniker": "UTB.Minute.DbManager\\Program.cs",

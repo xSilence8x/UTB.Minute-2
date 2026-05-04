@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UTB.Minute.AdminClient")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b7b729eb679bfc20f795117bcc756f36cc27946")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6192d19fbe4e6bf9d8040b9350801d6bacec334c")]
 [assembly: System.Reflection.AssemblyProductAttribute("UTB.Minute.AdminClient")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UTB.Minute.AdminClient")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -15,10 +15,7 @@ builder.Services.ConfigureHttpClientDefaults(defaults =>
     defaults.AddServiceDiscovery();
 });
 
-builder.Services.AddHttpClient<ApiClient>(client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration["WebApi:Url"] ?? "https://localhost:5001");
-});
+builder.Services.AddHttpClient<ApiClient>(c => c.BaseAddress = new Uri("https://webapi"));
 
 var app = builder.Build();
 
